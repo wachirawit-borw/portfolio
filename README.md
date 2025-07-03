@@ -1,19 +1,46 @@
-# Web Development Project Collection (Frontend & Backend Projects)
+# Wachirawit Borwonsuk – Personal Portfolio
 
-This repository is a collection of practice projects created during my learning journey in web development, especially focusing on frontend development.  
-Each project in this repo serves a different purpose, such as:
+👋 Hi there! I'm **Wachirawit Borwonsuk** a passionate fullstack web developer based in Thailand.
 
-- Practicing UI design with Figma  
-- Creating responsive layouts using TailwindCSS  
-- Developing reusable React components  
-- Structuring real-world projects with proper deployment  
-- Preparing production-ready portfolio projects for job applications or resumes
+This repository was created as my **personal portfolio site** to introduce myself, showcase my core technical skills, professional experience, and selected web development projects.
 
----
+## 🔹 About Me
 
-## 🧭 Purpose of This Repository
+- 🎓 B.B.A. in Computer Information Systems – Bangkok University
+- 🌐 Languages: Thai (Native), English (Intermediate)
+- 🛠️ Focused on building clean, responsive, scalable web applications
+- 🧠 Interested in AI-assisted development, performance optimization, and DevOps
 
-- To keep track of self-developed learning and practice projects  
-- To reflect on and improve personal progress over time
+## 🔧 Core Tech Stack
 
-📖 [Read this in Thai → คลิกที่นี่](./Languages/README.TH.md)
+### Frontend
+
+- HTML5, CSS3
+- JavaScript, TypeScript
+- React, Next.js, Tailwind CSS
+
+### Backend
+
+- Node.js, Express.js
+- REST / GraphQL APIs
+- Prisma ORM
+
+### Database
+
+- PostgreSQL
+- MongoDB
+
+### Tools & DevOps
+
+- Git, GitHub, Docker
+- Vercel, GitHub Actions
+- Postman / Insomnia, Figma
+
+## 💼 Experience
+
+- **AI Prompt Evaluator (Meta via Appen)** – Evaluating LLM output (health/religion), taxonomy violation detection
+- **Ad Quality Rater (Meta via Appen)** – Auditing ad content for policy compliance
+- **LLM Output Evaluator** – Prompt benchmarking, tone/safety tuning
+
+Thank you for visiting my portfolio 🙏  
+Feel free to connect with me via [LinkedIn](https://linkedin.com/in/zurfrk) or check out more code on [GitHub](https://github.com/wachirawit-borw).
