@@ -12,7 +12,7 @@ export const metadata = {
   openGraph: {
     title: 'ZURFRK | Wachirawit Borwonsuk',
     description: 'Explore the portfolio of Wachirawit Borwonsuk, showcasing fullstack projects, skills, and professional experience.',
-    url: 'https://zurfrk-portfolio.vercel.app',
+    url: 'https://zurfrk.vercel.app',
     siteName: 'Wachirawit Borwonsuk Portfolio',
     images: [
       {
