@@ -16,24 +16,19 @@ export default function Hero() {
         }
     }, []);
 
-    const textShadowStyle = { textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' };
-
     return (
-        <section id="home" className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
-
+        <section id="home" className="relative min-h-screen w-full flex items-center overflow-hidden">
             {canPlayVideo ? (
                 <video
                     autoPlay loop muted playsInline preload="auto"
                     onError={() => setCanPlayVideo(false)}
                     className="absolute inset-0 w-full h-full object-cover z-0"
-                    poster="/profile-image.webp"
                 >
-                    <source src="/videos/hero-bg.mp4" type="video/mp4" />
                     <source src="/videos/hero-bg.webm" type="video/webm" />
                 </video>
             ) : (
                 <Image
-                    src="/picture/hero-image.webp"
+                    src="/pictures/hero-image.webp"
                     alt="Hero Background"
                     fill
                     priority
@@ -41,54 +36,47 @@ export default function Hero() {
                 />
             )}
 
-            <div className="absolute inset-0 bg-black/70 z-10" />
-
-            <div className="relative z-20 container mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center px-6 text-white">
-
+            <div className="absolute inset-0 bg-black/60 z-10" />
+            <div className="relative z-10 container mx-auto w-full max-w-screen-lg">
                 <AnimateOnScroll>
-                    <div className="text-center md:text-left">
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#84e0ff] to-[#dabaff] [text-shadow:0_2px_4px_rgba(0,0,0,0.25)]">
+                    <div className="
+                        max-w-2xl
+                        bg-black/1
+                        backdrop-blur-md
+                        border border-white/10
+                        rounded-2xl
+                        p-8 md:p-5
+                        shadow-2xl shadow-black/30
+                    ">
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#84e0ff] to-[#dabaff]">
                             Hi, It&apos;s Wachirawit
                         </h1>
-                        <div style={textShadowStyle} className="text-xl sm:text-2xl lg:text-3xl font-bold mb-6 h-8 text-gray-300">
-                            <TypeAnimation sequence={[
-                                'Fullstack Web Developer', 2000,
-                                'React & Next.js Expert', 2000,
-                                'Node.js Enthusiast', 2000
-                            ]}
-                                wrapper="span" speed={50} repeat={Infinity} />
-                        </div>
-                        <p style={textShadowStyle} className="max-w-2xl text-gray-300 text-base lg:text-lg mb-8">
-                            A passionate developer specializing in building modern, responsive web applications with a focus on seamless user experiences.
-                        </p>
 
-                        <div className="flex justify-center md:justify-start items-center gap-6 mb-8">
-                            <a href="https://github.com/wachirawit-borw" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
-                                <FaGithub className="w-8 h-8 text-gray-400 hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg" />
-                            </a>
-                            <a href="https://linkedin.com/in/zurfrk" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
-                                <FaLinkedin className="w-8 h-8 text-gray-400 hover:text-white hover:scale-110 transition-all duration-300 drop-shadow-lg" />
-                            </a>
-                        </div>
-                    </div>
-                </AnimateOnScroll>
-
-                <AnimateOnScroll>
-                    <div className="flex justify-center">
-                        <div className="relative w-[250px] h-[250px] lg:w-[350px] lg:h-[350px]">
-                            <div className="absolute inset-0 bg-accent rounded-full blur-3xl opacity-40 animate-pulse"></div>
-                            <Image
-                                src="/picture/profile-image.webp"
-                                alt="Wachirawit Borwonsuk"
-                                width={350}
-                                height={350}
-                                className="relative rounded-full object-contain w-full h-full border-4 border-white-800/50"
-                                priority
+                        <div className="text-xl sm:text-2xl font-bold mb-6 h-8 text-gray-200" style={{ textShadow: '1px 1px 4px rgba(0,0,0,0.5)' }}>
+                            <TypeAnimation
+                                sequence={[
+                                    'Full-Stack Developer (AI/ML)', 2000,
+                                    'Frontend with Next.js & Tailwind', 2000,
+                                    'Backend: Node.js | Prisma & PostgreSQL', 2000,
+                                ]}
+                                wrapper="span"
+                                speed={50}
+                                repeat={Infinity}
                             />
                         </div>
+                        <p className="text-gray-300 text-base lg:text-lg mb-8">
+                            Fullstack Developer building modern, scalable web applications that deliver seamless user experiences from frontend to backend.
+                        </p>
+                        <div className="flex items-center gap-x-5">
+                            <a href="https://github.com/wachirawit-borw" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                                <FaGithub className="w-7 h-7 text-gray-300 hover:text-white hover:scale-110 transition-all duration-300" />
+                            </a>
+                            <a href="https://linkedin.com/in/zurfrk" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
+                                <FaLinkedin className="w-7 h-7 text-gray-300 hover:text-white hover:scale-110 transition-all duration-300" />
+                            </a>
+                        </div>
                     </div>
                 </AnimateOnScroll>
-
             </div>
         </section>
     );

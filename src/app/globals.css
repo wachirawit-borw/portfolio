@@ -1,31 +1,33 @@
+/* globals.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background-gradient: linear-gradient(to right, #f0cca8, #ccdef5);
-  --foreground: #1a202c;
-  --accent: #2b6cb0;
-  --accent-hover: #3182ce;
-  --muted-foreground: #4a5568;
-  --card-border: #cbd5e0;
-  --card-background: #ffffff;
-}
+@layer base {
+  body {
+    @apply bg-gradient-to-r from-gradient-start to-gradient-end text-foreground;
 
-body {
-  background: var(--background-gradient);
-  color: var(--foreground);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
 .scroll-animate {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
 .scroll-animate-in {
   opacity: 1;
   transform: translateY(0);
+}
+
+html {
+  scroll-snap-type: y mandatory;
+}
+
+section {
+  scroll-snap-align: start;
 }

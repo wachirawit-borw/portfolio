@@ -8,13 +8,13 @@ const experiences = [
 
 export default function ExperienceSection() {
   return (
-    <section id="experience" className="min-h-screen container mx-auto py-24 px-6 flex flex-col items-center bg-card-background/50 backdrop-blur-sm rounded-xl my-20">
+    <section id="experience" className="min-h-screen container mx-auto py-16 md:py-24 px-6 flex flex-col items-center backdrop-blur-sm rounded-xl my-20">
       <AnimateOnScroll>
         <h2 className="text-4xl font-bold mb-16 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-800">Work Experience</h2>
       </AnimateOnScroll>
 
       <div className="relative w-full max-w-3xl">
-        <div className="absolute left-6 md:left-1/2 -translate-x-1/2 h-full w-1 bg-card-border bg-[#828282]"></div>
+        <div className="absolute left-6 md:left-1/2 -translate-x-1/2 h-full w-1 bg-[#828282]"></div>
         
         {experiences.map((exp, index) => (
           <AnimateOnScroll key={index}>

@@ -1,7 +1,8 @@
 "use client";
 
-import { useInView } from 'react-intersection-observer';
-import { useState, useEffect, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { useAnimateOnScroll } from '@/hooks/useAOS';
+import clsx from 'clsx'; // ใช้ clsx เพื่อความคลีน
 
 type AnimateOnScrollProps = {
   children: ReactNode;
@@ -9,26 +10,18 @@ type AnimateOnScrollProps = {
 };
 
 export default function AnimateOnScroll({ children, className = '' }: AnimateOnScrollProps) {
-  const [hasMounted, setHasMounted] = useState(false);
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
-
-  const { ref, inView } = useInView({
-    triggerOnce: true, // ให้ animation ทำงานแค่ครั้งเดียว
-    threshold: 0.1,    // ให้ animation ทำงานเมื่อเห็น element 10%
-  });
-
-  // ป้องกัน Hydration Error โดยการไม่ render อะไรเลยฝั่ง Server
-  if (!hasMounted) {
-    return null;
-  }
+  // 2. เรียกใช้ Hook เพื่อเอา ref และสถานะการ animate มาใช้งาน
+  // โค้ดส่วน Logic ทั้งหมดจะอยู่ใน Hook ทำให้คอมโพเนนต์นี้ดูแลแค่งานแสดงผล
+  const { ref, shouldAnimate } = useAnimateOnScroll();
 
   return (
     <div
       ref={ref}
-      className={`scroll-animate ${inView ? 'scroll-animate-in' : ''} ${className}`}
+      className={clsx(
+        'scroll-animate',
+        { 'scroll-animate-in': shouldAnimate }, // 3. กำหนด class ตามสถานะที่ได้จาก Hook
+        className
+      )}
     >
       {children}
     </div>
