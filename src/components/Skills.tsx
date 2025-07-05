@@ -30,6 +30,7 @@ export default function SkillsWithVideoBackground() {
                 loop
                 muted
                 playsInline
+                preload="none"
                 className="absolute top-0 left-0 w-full h-full object-cover -z-10"
             >
                 <source src="/videos/skills-bg.webm" type="video/webm" /> 

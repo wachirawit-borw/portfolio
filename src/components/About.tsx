@@ -67,7 +67,7 @@ export default function About() {
                 loop
                 muted
                 playsInline
-                preload="auto"
+                preload="none"
                 className="absolute inset-0 w-full h-full object-cover z-0"
             >
                 <source src="/videos/about-bg.webm" type="video/webm" />

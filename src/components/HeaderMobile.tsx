@@ -2,6 +2,7 @@
 import { useState, type FC, type MouseEvent } from "react";
 import clsx from 'clsx';
 
+// --- Type Definitions ---
 type NavLinkData = { href: string; label: string; };
 type HeaderProps = {
     navLinks: NavLinkData[];
@@ -10,6 +11,7 @@ type HeaderProps = {
     handleSmoothScroll: (e: MouseEvent<HTMLAnchorElement>) => void;
 };
 
+// --- SVG Icons ---
 const MenuIcon: FC<{ className?: string }> = ({ className }) => (
     <svg className={`w-6 h-6 ${className}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -20,6 +22,8 @@ const XIcon: FC<{ className?: string }> = ({ className }) => (
         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
     </svg>
 );
+
+// --- NavLink Component ---
 const NavLink: FC<{
     link: NavLinkData;
     isActive: boolean;
@@ -31,8 +35,12 @@ const NavLink: FC<{
     onClick={onClick}
     aria-current={isActive ? 'page' : undefined}
     className={clsx(
-      'transition-colors duration-200 hover:text-accent-hover',
-      { 'text-accent-hover font-bold': isActive, 'text-white': !isActive },
+      'transition-colors duration-200',
+      // [แก้ไข] เปลี่ยนสีข้อความเป็นสีเข้ม เพื่อให้อ่านง่ายบนพื้นหลังสว่าง
+      {
+        'text-gray-900 font-bold': isActive, // สีสำหรับลิงก์ที่ Active (สีดำ)
+        'text-gray-600 hover:text-gray-900': !isActive // สีสำหรับลิงก์ปกติ (สีเทาเข้ม)
+      },
       className
     )}
   >
@@ -40,39 +48,49 @@ const NavLink: FC<{
   </a>
 );
 
+
+// --- Main Mobile Header Component ---
 const HeaderMobile: FC<HeaderProps> = ({ navLinks, activeSection, isScrolled, handleSmoothScroll }) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>) => {
         handleSmoothScroll(e);
-        setMenuOpen(false); // ปิดเมนูหลังคลิก
+        setMenuOpen(false);
     };
 
     return (
         <>
+            {/* Header Bar */}
             <header className={clsx(
                 'fixed w-full px-4 sm:px-6 py-4 flex justify-between items-center top-0 z-50 transition-all duration-300',
                 { 'bg-card-background/80 backdrop-blur-sm shadow-lg bg-gradient-to-r from-[#f0cca8] to-[#07ade5]': isScrolled, 'bg-transparent': !isScrolled }
             )}>
                 <h1 className="text-2xl font-extrabold text-white [-webkit-text-stroke:0.5px_black]">ZURFRK</h1>
-                <button 
-                    aria-label="Toggle mobile navigation" 
-                    className="z-50 text-white" 
+                <button
+                    aria-label="Toggle mobile navigation"
+                    className="z-50 text-white"
                     onClick={() => setMenuOpen(!menuOpen)}
                 >
                     {menuOpen ? <XIcon /> : <MenuIcon />}
                 </button>
             </header>
 
+            {/* Mobile Menu Overlay */}
             {menuOpen && (
-                <nav className="bg-card-background text-foreground px-6 py-4 space-y-2 font-medium shadow-lg fixed top-0 left-0 w-full pt-20 z-40">
+                <nav
+                  className={clsx(
+                    "fixed inset-0 z-40 flex flex-col items-center justify-center gap-y-6",
+                    // [แก้ไข] เปลี่ยนสีพื้นหลังให้เป็น Gradient ตามที่คุณต้องการ
+                    "bg-gradient-to-br from-blue-100 via-white to-orange-100"
+                  )}
+                >
                     {navLinks.map((link) => (
                         <NavLink
                             key={link.href}
                             link={link}
                             isActive={activeSection === link.href.substring(1)}
                             onClick={handleLinkClick}
-                            className="block py-3 text-center text-lg text-foreground"
+                            className="block text-center text-2xl"
                         />
                     ))}
                 </nav>

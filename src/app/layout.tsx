@@ -12,13 +12,13 @@ export const metadata = {
   openGraph: {
     title: 'ZURFRK | Wachirawit Borwonsuk',
     description: 'Explore the portfolio of Wachirawit Borwonsuk, showcasing fullstack projects, skills, and professional experience.',
-    url: 'https://zurfrk-portfolio.vercel.app', // กรุณาเปลี่ยนเป็น URL จริงของคุณเมื่อ deploy
+    url: 'https://zurfrk-portfolio.vercel.app',
     siteName: 'Wachirawit Borwonsuk Portfolio',
     images: [
       {
-        url: '/og-image.png', // คุณต้องสร้างและวางไฟล์นี้ในโฟลเดอร์ /public
+        url: '/pictures/og-image.webp',
         width: 1200,
-        height: 630,
+        height: 524,
         alt: 'Wachirawit Borwonsuk Portfolio Website',
       },
     ],
@@ -26,9 +26,9 @@ export const metadata = {
     type: 'website',
   },
   icons: {
-    icon: '/favicon.ico', // คุณต้องสร้างและวางไฟล์นี้ในโฟลเดอร์ /public
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
+    icon: '/pictures/favicon.ico',
+    shortcut: '/pictures/favicon.ico',
+    apple: '/pictures/favicon.ico',
   },
 }
 

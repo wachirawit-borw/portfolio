@@ -1,3 +1,10 @@
+import withBundleAnalyzer from '@next/bundle-analyzer';
+import { RemotePattern } from 'next/dist/shared/lib/image-config'; // 👈 import ให้ตรง type
+
+const analyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -5,17 +12,15 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'placehold.co',
-        port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'image.thum.io',
-        port: '',
         pathname: '/**',
       },
-    ],
+    ] as RemotePattern[], // 👈 cast type ตรงนี้
   },
 };
 
-module.exports = nextConfig;
+export default analyzer(nextConfig);

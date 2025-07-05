@@ -1,9 +1,8 @@
-"use client"; // ใช้ state จัดการ error ของรูปภาพ จึงต้องเป็น Client Component
+"use client";
 
 import Image from "next/image";
 import { useState } from "react";
 
-// กำหนด type เพื่อความชัดเจนของข้อมูล
 interface Project {
   title: string;
   description: string;
