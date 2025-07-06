@@ -23,8 +23,9 @@ const skillCategories = [
 
 export default function SkillsWithVideoBackground() {
     return (
-        <section id="skills" className="relative py-24 sm:py-32 overflow-hidden">
-            {/* Video Background */}
+        <section id="skills"
+            className="relative min-h-screen flex items-center justify-center py-24 sm:py-32 overflow-hidden"
+        >
             <video
                 autoPlay
                 loop
@@ -33,7 +34,7 @@ export default function SkillsWithVideoBackground() {
                 preload="none"
                 className="absolute top-0 left-0 w-full h-full object-cover -z-10"
             >
-                <source src="/videos/skills-bg.webm" type="video/webm" /> 
+                <source src="/videos/skills-bg.webm" type="video/webm" />
             </video>
 
             {/* Overlay (ปรับความโปร่งแสงได้ตามต้องการ) */}

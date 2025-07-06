@@ -18,13 +18,10 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   const [imageError, setImageError] = useState(false);
 
-  if (!project) {
-    return null;
-  }
-
   return (
-    <div className="bg-card-background/60 border border-card-border rounded-xl overflow-hidden flex flex-col md:flex-row transition-all duration-300 hover:border-accent/50 hover:shadow-2xl hover:shadow-accent/10">
-      <div className="md:w-1/2 h-64 md:h-auto min-h-[250px] relative">
+    <div className="bg-card-background/60 border border-card-border rounded-xl overflow-hidden flex flex-col lg:flex-row transition-all duration-300 hover:border-accent/50 hover:shadow-2xl hover:shadow-accent/10">
+      {/* รูป */}
+      <div className="w-full lg:w-1/2 h-64 lg:h-auto min-h-[250px] relative">
         {imageError ? (
           <div className="w-full h-full bg-neutral-800/50 flex items-center justify-center">
             <span className="text-muted-foreground text-sm">Image not available</span>
@@ -39,9 +36,11 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           />
         )}
       </div>
-      <div className="md:w-1/2 p-8 flex flex-col">
+
+      {/* เนื้อหา */}
+      <div className="w-full lg:w-1/2 p-6 sm:p-8 flex flex-col">
         <h3 className="text-2xl font-bold mb-3 text-accent">{project.title}</h3>
-        <p className="text-muted-foreground mb-6 flex-grow">{project.description}</p>
+        <p className="text-muted-foreground mb-6">{project.description}</p>
         <div className="flex flex-wrap gap-2 mb-6">
           {project.tags.map((tag) => (
             <div key={tag} className="bg-accent/10 text-accent text-xs font-semibold px-2.5 py-1 rounded-full">

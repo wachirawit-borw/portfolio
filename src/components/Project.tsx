@@ -18,7 +18,7 @@ export default function ProjectsSection() {
       id="projects"
       className="w-full min-h-screen py-24 flex flex-col items-center my-8"
     >
-      <div className="container mx-auto max-w-screen-lg px-6 w-full">
+      <div className="container mx-auto max-w-4xl px-6 w-full">
         <AnimateOnScroll>
           <h2 className="text-4xl font-bold mb-16 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400">
             My Projects
