@@ -17,7 +17,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section id="home" className="relative min-h-screen w-full flex items-center overflow-hidden">
+        <section id="home" className="relative min-h-screen w-full flex items-end justify-center pb-20 overflow-hidden">
             {canPlayVideo ? (
                 <video
                     autoPlay loop muted playsInline preload="auto"
@@ -37,10 +37,11 @@ export default function Hero() {
             )}
 
             <div className="absolute inset-0 bg-black/60 z-10" />
-            <div className="relative z-10 container mx-auto w-full max-w-screen-lg">
+            <div className="relative z-10 container w-full max-w-screen-lg">
                 <AnimateOnScroll>
                     <div className="
                         max-w-2xl
+                        mx-auto
                         bg-black/1
                         backdrop-blur-md
                         border border-white/10
