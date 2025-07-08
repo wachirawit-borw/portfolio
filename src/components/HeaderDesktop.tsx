@@ -1,7 +1,7 @@
 "use client";
 import type { FC, MouseEvent } from "react";
 import clsx from 'clsx';
-import NavLink, { type NavLinkData } from "./NavLink";
+import NavLink, { type NavLinkData } from "@/components/NavLink";
 
 type HeaderDesktopProps = {
     navLinks: NavLinkData[];

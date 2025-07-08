@@ -1,25 +1,21 @@
 "use client";
-
 import { useState, useEffect, useRef } from 'react';
 import Image from "next/image";
-import AnimateOnScroll from "./AnimateOnScroll";
+import AnimateOnScroll from '@/components/AnimateOnScroll';
 import { FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
 import useScreenSize from '@/hooks/useScreenSize';
 
 export default function About() {
-    // --- [ขั้นตอนที่ 1: ย้าย Hooks ทั้งหมดขึ้นมาบนสุด] ---
-    // ไม่ว่าจะเกิดอะไรขึ้น Hooks เหล่านี้จะถูกเรียกใช้เสมอในทุกลำดับการ render
     const [isIntersecting, setIsIntersecting] = useState(false);
     const [isMuted, setIsMuted] = useState(true);
+    const [isVideoLoaded, setIsVideoLoaded] = useState(false);
     const sectionRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const hasBeenUnmutedOnce = useRef(false);
     const { isMobile } = useScreenSize();
 
-    // Hook `useEffect` ถูกย้ายขึ้นมาอยู่ก่อนเงื่อนไข `if`
     useEffect(() => {
-        // เราจะตรวจสอบ `isMobile` ข้างใน `useEffect` แทน
-        // ถ้า `isMobile` ยังเป็น null, ก็ยังไม่ต้องทำอะไร
+
         if (isMobile === null) {
             return;
         }
@@ -50,7 +46,7 @@ export default function About() {
                 observer.unobserve(currentSection);
             }
         };
-    }, [isMobile]); // <-- เพิ่ม isMobile ใน dependency array
+    }, [isMobile]);
 
     const toggleMute = () => {
         if (!videoRef.current) return;
@@ -62,34 +58,50 @@ export default function About() {
         }
     };
 
-    // --- [ขั้นตอนที่ 2: แก้ไขเงื่อนไขการ Render] ---
-    // เงื่อนไขนี้ยังคงอยู่เหมือนเดิม แต่มันจะไม่ขวางการทำงานของ Hooks ที่อยู่ด้านบนแล้ว
+    const handleVideoLoad = () => {
+        setIsVideoLoaded(true);
+    };
+
     if (isMobile === null) {
         return <section id="about" className="relative min-h-screen w-full" />;
     }
 
-    // เมื่อ isMobile มีค่าที่แน่นอนแล้ว ส่วน JSX นี้ถึงจะถูก render
     return (
         <section
             id="about"
             ref={sectionRef}
-            className="relative min-h-screen w-full flex items-center"
+            className="relative min-h-screen w-full flex items-center overflow-hidden"
         >
-            {/* โค้ด JSX ทั้งหมดของคุณจะอยู่ตรงนี้ (เหมือนเดิม) */}
-            <video
-                ref={videoRef}
-                loop
-                muted
-                playsInline
-                preload="auto"
-                className="absolute inset-0 w-full h-full object-cover z-0"
-            >
-                <source src="/videos/about-bg.webm" type="video/webm" />
-            </video>
-            <div className="absolute inset-0 bg-black/40 z-10" />
+            {/* Background Video Container - กำหนดขนาดที่ชัดเจน */}
+            <div className="absolute inset-0 w-full h-full">
+                {/* Fallback Background - แสดงก่อนที่วิดีโอจะโหลด */}
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+                
+                <video
+                    ref={videoRef}
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                    onLoadedData={handleVideoLoad}
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                        isVideoLoaded ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    style={{
+                        // กำหนดขนาดพื้นฐานให้วิดีโอเพื่อป้องกัน layout shift
+                        minWidth: '100%',
+                        minHeight: '100%',
+                        width: '100%',
+                        height: '100%',
+                    }}
+                >
+                    <source src="/videos/about-bg.webm" type="video/webm" />
+                </video>
+                <div className="absolute inset-0 bg-black/40 z-10" />
+            </div>
             <div className={`relative z-20 w-full ${isMobile ? 'px-4' : 'px-8 lg:px-12 xl:px-16'}`}>
                 <AnimateOnScroll>
-                    <div className={`${isMobile ? 'max-w-sm' : 'max-w-xl'} bg-black/40 backdrop-blur-lg border border-white/10 rounded-2xl ${isMobile ? 'p-5' : 'p-8 md:p-10'} shadow-2xl shadow-black/40`}>
+                    <div className={`${isMobile ? 'max-w-sm mx-auto' : 'max-w-xl'} bg-black/40 backdrop-blur-lg border border-white/10 rounded-2xl ${isMobile ? 'p-5' : 'p-8 md:p-10'} shadow-2xl shadow-black/40`}>
                         <div className="flex flex-col">
                             <div className="mb-5">
                                 <Image
@@ -115,10 +127,11 @@ export default function About() {
                     </div>
                 </AnimateOnScroll>
             </div>
+            {/* Mute Button - กำหนดตำแหน่งที่ชัดเจน */}
             {isIntersecting && (
                 <button
                     onClick={toggleMute}
-                    className={`absolute z-30 ${isMobile ? 'bottom-4 right-4 p-3' : 'bottom-6 right-6 sm:bottom-8 sm:right-8 md:bottom-10 md:right-10 p-3 sm:p-4'} bg-white/20 backdrop-blur-md text-white rounded-full transition-opacity duration-300 hover:bg-white/30`}
+                    className={`absolute z-30 ${isMobile ? 'bottom-4 right-4 p-3' : 'bottom-6 right-6 sm:bottom-8 sm:right-8 md:bottom-10 md:right-10 p-3 sm:p-4'} bg-white/20 backdrop-blur-md text-white rounded-full transition-all duration-300 hover:bg-white/30 hover:scale-110`}
                     aria-label={isMuted ? "Unmute video" : "Mute video"}
                 >
                     {isMuted ? 

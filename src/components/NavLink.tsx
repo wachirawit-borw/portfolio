@@ -1,9 +1,7 @@
 "use client";
-
 import type { FC, MouseEvent } from "react";
 import clsx from 'clsx';
 
-// กำหนด Type ของ Props ให้ชัดเจน
 export type NavLinkData = {
     href: string;
     label: string;
@@ -36,10 +34,10 @@ const NavLink: FC<NavLinkProps> = ({
             className={clsx(
                 'transition-colors duration-200',
                 {
-                    [activeClassName]: isActive,   // ใช้ class ที่ส่งเข้ามาเมื่อ active
-                    [inactiveClassName]: !isActive, // ใช้ class ที่ส่งเข้ามาเมื่อ inactive
+                    [activeClassName]: isActive,
+                    [inactiveClassName]: !isActive,
                 },
-                className // class เพิ่มเติม
+                className
             )}
         >
             {link.label}

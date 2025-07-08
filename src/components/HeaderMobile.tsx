@@ -1,7 +1,7 @@
 "use client";
 import { useState, type FC, type MouseEvent } from "react";
 import clsx from 'clsx';
-import NavLink, { type NavLinkData } from "./NavLink";
+import NavLink, { type NavLinkData } from "@/components/NavLink";
 
 const MenuIcon: FC<{ className?: string }> = ({ className }) => (
     <svg className={`w-6 h-6 ${className}`} fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
