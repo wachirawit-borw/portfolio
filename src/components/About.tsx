@@ -12,6 +12,7 @@ export default function About() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const hasBeenUnmutedOnce = useRef(false);
+    const isInitialLoad = useRef(true); // <-- ตัวแปรสำหรับเช็คการโหลดครั้งแรก
     const { isMobile } = useScreenSize();
 
     useEffect(() => {
@@ -24,15 +25,25 @@ export default function About() {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 setIsIntersecting(entry.isIntersecting);
+
+                // --- ส่วนที่แก้ไข ---
                 if (entry.isIntersecting) {
+                    // ถ้าเป็นการโหลดครั้งแรก ให้เปลี่ยนค่า isInitialLoad เป็น false แล้วไม่ต้องทำอะไรต่อ
+                    if (isInitialLoad.current) {
+                        isInitialLoad.current = false;
+                        return;
+                    }
+                    // ถ้าไม่ใช่การโหลดครั้งแรก (คือผู้ใช้ scroll มาเอง) ให้เล่นวิดีโอ
                     videoRef.current?.play().catch((err) => {
                         console.warn("Play error:", err);
                     });
                 } else {
-                    if (!videoRef.current?.paused) {
+                    // การสั่ง pause ควรทำงานหลังจากโหลดครั้งแรกผ่านไปแล้วเท่านั้น
+                    if (!isInitialLoad.current && !videoRef.current?.paused) {
                         videoRef.current?.pause();
                     }
                 }
+                // --- จบส่วนที่แก้ไข ---
             },
             { threshold: 0.6 }
         );
@@ -72,9 +83,9 @@ export default function About() {
             ref={sectionRef}
             className="relative min-h-screen w-full flex items-center overflow-hidden"
         >
-            {/* Background Video Container - กำหนดขนาดที่ชัดเจน */}
+            {/* Background Video Container */}
             <div className="absolute inset-0 w-full h-full">
-                {/* Fallback Background - แสดงก่อนที่วิดีโอจะโหลด */}
+                {/* Fallback Background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
                 
                 <video
@@ -88,7 +99,6 @@ export default function About() {
                         isVideoLoaded ? 'opacity-100' : 'opacity-0'
                     }`}
                     style={{
-                        // กำหนดขนาดพื้นฐานให้วิดีโอเพื่อป้องกัน layout shift
                         minWidth: '100%',
                         minHeight: '100%',
                         width: '100%',
@@ -127,7 +137,7 @@ export default function About() {
                     </div>
                 </AnimateOnScroll>
             </div>
-            {/* Mute Button - กำหนดตำแหน่งที่ชัดเจน */}
+            {/* Mute Button */}
             {isIntersecting && (
                 <button
                     onClick={toggleMute}
