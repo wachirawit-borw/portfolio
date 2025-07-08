@@ -80,7 +80,7 @@ export default function SkillsWithVideoBackground() {
                     </p>
 
                     {/* Skill categories */}
-                    <div className="mt-16 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-12 text-left">
+                    <div className="mt-16 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-x-8 gap-y-12 text-left">
                         {skillCategories.map(({ title, skills }) => (
                             <div key={title}>
                                 <h3 className="text-xl font-semibold tracking-wide text-blue-300 mb-5">{title}</h3>

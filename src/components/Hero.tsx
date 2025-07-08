@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { TypeAnimation } from 'react-type-animation';
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 
 export default function Hero() {
@@ -101,26 +100,6 @@ export default function Hero() {
                         <p className="text-gray-300 text-base lg:text-lg mb-8">
                             Fullstack Developer building modern, scalable web applications that deliver seamless user experiences from frontend to backend.
                         </p>
-                        <div className="flex items-center gap-x-5">
-                            <a 
-                                href="https://github.com/wachirawit-borw" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                aria-label="GitHub Profile"
-                                className="transition-transform duration-300 hover:scale-110"
-                            >
-                                <FaGithub className="w-7 h-7 text-gray-300 hover:text-white transition-colors duration-300" />
-                            </a>
-                            <a 
-                                href="https://linkedin.com/in/zurfrk" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                aria-label="LinkedIn Profile"
-                                className="transition-transform duration-300 hover:scale-110"
-                            >
-                                <FaLinkedin className="w-7 h-7 text-gray-300 hover:text-white transition-colors duration-300" />
-                            </a>
-                        </div>
                     </div>
                 </AnimateOnScroll>
             </div>
