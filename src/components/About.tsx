@@ -12,11 +12,9 @@ export default function About() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
     const hasBeenUnmutedOnce = useRef(false);
-    const isInitialLoad = useRef(true); // <-- ตัวแปรสำหรับเช็คการโหลดครั้งแรก
     const { isMobile } = useScreenSize();
 
     useEffect(() => {
-
         if (isMobile === null) {
             return;
         }
@@ -25,27 +23,24 @@ export default function About() {
         const observer = new IntersectionObserver(
             ([entry]) => {
                 setIsIntersecting(entry.isIntersecting);
-
-                // --- ส่วนที่แก้ไข ---
+                
+                // จัดการการเล่น/หยุดวิดีโอเมื่อมองเห็น/ไม่เห็น
                 if (entry.isIntersecting) {
-                    // ถ้าเป็นการโหลดครั้งแรก ให้เปลี่ยนค่า isInitialLoad เป็น false แล้วไม่ต้องทำอะไรต่อ
-                    if (isInitialLoad.current) {
-                        isInitialLoad.current = false;
-                        return;
+                    if (videoRef.current && videoRef.current.paused) {
+                        videoRef.current.play().catch((err) => {
+                            console.warn("Play error:", err);
+                        });
                     }
-                    // ถ้าไม่ใช่การโหลดครั้งแรก (คือผู้ใช้ scroll มาเอง) ให้เล่นวิดีโอ
-                    videoRef.current?.play().catch((err) => {
-                        console.warn("Play error:", err);
-                    });
                 } else {
-                    // การสั่ง pause ควรทำงานหลังจากโหลดครั้งแรกผ่านไปแล้วเท่านั้น
-                    if (!isInitialLoad.current && !videoRef.current?.paused) {
-                        videoRef.current?.pause();
-                    }
+                    if (videoRef.current && !videoRef.current.paused) {
+                         videoRef.current.pause();
+                     }
                 }
-                // --- จบส่วนที่แก้ไข ---
             },
-            { threshold: 0.6 }
+            { 
+                threshold: 0.5,
+                rootMargin: '0px 0px -10% 0px'
+            }
         );
 
         if (currentSection) {
@@ -58,6 +53,8 @@ export default function About() {
             }
         };
     }, [isMobile]);
+
+    // ลบ useEffect ที่ซ้ำซ้อนออก - ให้ autoPlay หรือ Intersection Observer จัดการ
 
     const toggleMute = () => {
         if (!videoRef.current) return;
@@ -90,6 +87,7 @@ export default function About() {
                 
                 <video
                     ref={videoRef}
+                    autoPlay
                     loop
                     muted
                     playsInline
@@ -109,6 +107,7 @@ export default function About() {
                 </video>
                 <div className="absolute inset-0 bg-black/40 z-10" />
             </div>
+            
             <div className={`relative z-20 w-full ${isMobile ? 'px-4' : 'px-8 lg:px-12 xl:px-16'}`}>
                 <AnimateOnScroll>
                     <div className={`${isMobile ? 'max-w-sm mx-auto' : 'max-w-xl'} bg-black/40 backdrop-blur-lg border border-white/10 rounded-2xl ${isMobile ? 'p-5' : 'p-8 md:p-10'} shadow-2xl shadow-black/40`}>
@@ -137,6 +136,7 @@ export default function About() {
                     </div>
                 </AnimateOnScroll>
             </div>
+            
             {/* Mute Button */}
             {isIntersecting && (
                 <button
