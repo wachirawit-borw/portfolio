@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --foreground: #132d61ff;
+    --accent: #2b6cb0;
+    --accent-hover: #3182ce;
+    --muted-foreground: #4a5568;
+    --card-border: #cbd5e0;
+    --card-background: #ffffff;
+    --gradient-start: #f0cca8;
+    --gradient-end: #ccdef5;
+  }
+
   body {
     @apply bg-gradient-to-r from-gradient-start to-gradient-end text-foreground;
 

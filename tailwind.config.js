@@ -7,22 +7,17 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // นำค่าสีทั้งหมดจาก globals.css มาไว้ที่นี่
+      // ใช้ CSS Variables จาก globals.css
       colors: {
-        'foreground': '#1a202c',
-        'accent': '#2b6cb0',
-        'accent-hover': '#3182ce',
-        'muted-foreground': '#4a5568',
-        'card-border': '#cbd5e0',
-        'card-background': '#ffffff',
-        // สำหรับสีของ Gradient เราก็สามารถกำหนดไว้ที่นี่ได้
-        'gradient-start': '#f0cca8',
-        'gradient-end': '#ccdef5',
+        'foreground': 'var(--foreground)',
+        'accent': 'var(--accent)',
+        'accent-hover': 'var(--accent-hover)',
+        'muted-foreground': 'var(--muted-foreground)',
+        'card-border': 'var(--card-border)',
+        'card-background': 'var(--card-background)',
+        'gradient-start': 'var(--gradient-start)',
+        'gradient-end': 'var(--gradient-end)',
       },
-      // คุณยังสามารถกำหนดค่าอื่นๆ เพิ่มเติมได้ เช่น backgroundImage
-      backgroundImage: {
-        'gradient-body': 'linear-gradient(to right, var(--tw-gradient-stops))',
-      }
     },
   },
   plugins: [],
