@@ -22,9 +22,7 @@ export default function Hero() {
 
     return (
         <section id="home" className="relative min-h-screen w-full flex items-end justify-center pb-20 overflow-hidden">
-            {/* Background Container - กำหนดขนาดที่ชัดเจน */}
             <div className="absolute inset-0 w-full h-full">
-                {/* Fallback Background - แสดงก่อนที่วิดีโอจะโหลด */}
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
                 
                 {canPlayVideo ? (
@@ -33,14 +31,13 @@ export default function Hero() {
                         loop 
                         muted 
                         playsInline 
-                        preload="metadata"
+                        preload="auto"
                         onLoadedData={handleVideoLoad}
                         onError={() => setCanPlayVideo(false)}
                         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
                             isVideoLoaded ? 'opacity-100' : 'opacity-0'
                         }`}
                         style={{
-                            // กำหนดขนาดพื้นฐานให้วิดีโอเพื่อป้องกัน layout shift
                             minWidth: '100%',
                             minHeight: '100%',
                             width: '100%',

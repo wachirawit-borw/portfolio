@@ -14,7 +14,7 @@ const experiences = [
   {
     role: "LLM Output Evaluator",
     company: "Prompt & Intent Evaluation",
-    duration: "June 2025 - Present",
+    duration: "June 2025 - July 2025",
     description: [
       "Benchmarked Thai / English LLM responses for fluency, factuality, and intent alignment.",
       "Delivered actionable feedback on tone, cultural nuance, and safety, directly informing model retraining cycles.",
