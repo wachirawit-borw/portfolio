@@ -53,7 +53,7 @@ Live demo → [<https://zurfrk.vercel.app/>]
 
 ## 💻 Screenshot
 
-![Homepage Screenshot](public/debug/home.webp)
+![Homepage Screenshot](public/debug/Home.webp)
 
 ![Lighthouse Screenshot](public/debug/Lighthouse.webp)
 
