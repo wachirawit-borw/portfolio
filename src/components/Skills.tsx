@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import AnimateOnScroll from '@/components/AnimateOnScroll';
 
 const skillCategories = [
@@ -25,7 +25,12 @@ const skillCategories = [
 export default function SkillsWithVideoBackground() {
     const [canPlayVideo, setCanPlayVideo] = useState(false);
     const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+    const [isIntersecting, setIsIntersecting] = useState(false);
+    
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
 
+    // ตรวจสอบการรองรับวิดีโอ
     useEffect(() => {
         const video = document.createElement("video");
         const support = video.canPlayType("video/webm");
@@ -34,26 +39,99 @@ export default function SkillsWithVideoBackground() {
         }
     }, []);
 
+    // Intersection Observer สำหรับจัดการการเล่นวิดีโอ
+    useEffect(() => {
+        const currentSection = sectionRef.current;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsIntersecting(entry.isIntersecting);
+                
+                if (entry.isIntersecting) {
+                    // เมื่อมองเห็น section ให้เล่นวิดีโอ
+                    if (videoRef.current && videoRef.current.paused) {
+                        videoRef.current.play().catch((err) => {
+                            console.warn("Video play error:", err);
+                        });
+                    }
+                } else {
+                    // เมื่อไม่เห็น section ให้หยุดวิดีโอ (ถ้าต้องการประหยัดทรัพยากร)
+                    // หรือปล่อยให้เล่นต่อไปถ้าไม่ต้องการให้หยุด
+                    // if (videoRef.current && !videoRef.current.paused) {
+                    //     videoRef.current.pause();
+                    // }
+                }
+            },
+            { 
+                threshold: 0.3, // เริ่มเล่นเมื่อเห็น 30% ของ section
+                rootMargin: '50px 0px' // เพิ่ม margin เพื่อให้เริ่มเล่นก่อนหน่อย
+            }
+        );
+
+        if (currentSection) {
+            observer.observe(currentSection);
+        }
+
+        return () => {
+            if (currentSection) {
+                observer.unobserve(currentSection);
+            }
+        };
+    }, [canPlayVideo]);
+
     const handleVideoLoad = useCallback(() => {
         setIsVideoLoaded(true);
     }, []);
 
+    const handleVideoError = useCallback((error: any) => {
+        console.error("Video error:", error);
+        setCanPlayVideo(false);
+    }, []);
+
+    // จัดการเมื่อวิดีโอหยุดเองโดยไม่คาดคิด
+    const handleVideoPause = useCallback(() => {
+        if (isIntersecting && videoRef.current) {
+            // ถ้า section ยังมองเห็นอยู่แต่วิดีโอหยุด ให้เล่นใหม่
+            setTimeout(() => {
+                if (videoRef.current && videoRef.current.paused && isIntersecting) {
+                    videoRef.current.play().catch((err) => {
+                        console.warn("Video restart error:", err);
+                    });
+                }
+            }, 100);
+        }
+    }, [isIntersecting]);
+
     return (
-        <section id="skills" className="relative min-h-screen flex items-center justify-center py-24 sm:py-32 overflow-hidden">
+        <section 
+            id="skills" 
+            ref={sectionRef}
+            className="relative min-h-screen flex items-center justify-center py-24 sm:py-32 overflow-hidden"
+        >
             {/* Background: Video or fallback image */}
             {canPlayVideo ? (
                 <video
+                    ref={videoRef}
                     autoPlay
                     loop
                     muted
                     playsInline
                     preload="metadata"
                     onLoadedData={handleVideoLoad}
-                    onError={() => setCanPlayVideo(false)}
-                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isVideoLoaded ? 'opacity-100' : 'opacity-0'}`}
-                    style={{ minWidth: '100%', minHeight: '100%' }}
+                    onError={handleVideoError}
+                    onPause={handleVideoPause}
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                        isVideoLoaded ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    style={{ 
+                        minWidth: '100%', 
+                        minHeight: '100%',
+                        width: '100%',
+                        height: '100%'
+                    }}
                 >
                     <source src="/videos/skills-bg.webm" type="video/webm" />
+                    {/* เพิ่ม fallback สำหรับ browser ที่ไม่รองรับ webm */}
+                    <source src="/videos/skills-bg.mp4" type="video/mp4" />
                 </video>
             ) : (
                 <Image
@@ -88,7 +166,7 @@ export default function SkillsWithVideoBackground() {
                                     {skills.map(skill => (
                                         <div
                                             key={skill}
-                                            className="bg-gray-800/50 border border-gray-700 text-gray-200 rounded-lg px-4 py-2 text-sm font-medium"
+                                            className="bg-gray-800/50 border border-gray-700 text-gray-200 rounded-lg px-4 py-2 text-sm font-medium hover:bg-gray-700/50 transition-colors duration-200"
                                         >
                                             {skill}
                                         </div>
