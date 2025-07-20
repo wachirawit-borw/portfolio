@@ -82,7 +82,8 @@ export default function SkillsWithVideoBackground() {
         setIsVideoLoaded(true);
     }, []);
 
-    const handleVideoError = useCallback((error: any) => {
+    // แก้ไข: ระบุ Type ของ error parameter ให้ถูกต้อง
+    const handleVideoError = useCallback((error: React.SyntheticEvent<HTMLVideoElement, Event>) => {
         console.error("Video error:", error);
         setCanPlayVideo(false);
     }, []);
