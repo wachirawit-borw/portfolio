@@ -12,33 +12,35 @@ const AnimateOnScroll = ({ children }: AnimateOnScrollProps) => (
 
 const experiences = [
   {
-    role: "AI Prompt Evaluator",
-    company: "Meta (via Appen Contract)",
-    duration: "June 2025 - Present",
+    role: "AD & AI PROMPT POLICY EVALUATION",
+    company: "Appen (Remote – Thailand)",
+    duration: "Apr 2025 – Present",
     description: [
-      "Evaluated 160+ AI prompts hourly for health/religion violations with 90%+ quality score",
-      "Applied structured taxonomy for standardized rationales, achieving 22-second AHT",
-      "Collaborated with policy leads to streamline escalation workflows effectively"
+      "Reviewed 250+ Facebook & Instagram ads per shift for policy compliance, achieving >90% audit accuracy",
+      "Flagged high-risk ads involving misinformation, gambling, sexual content, and medical deception, enabling rapid removal",
+      "Evaluated 160+ AI-generated prompts per hour for health and religion guideline violations using structured taxonomy",
+      "Reduced average handle time to 22 seconds by standardizing rationale formats, improving reviewer efficiency",
+      "Collaborated with policy leads to refine escalation workflows, cutting backlog and improving turnaround times"
     ],
   },
   {
-    role: "LLM Output Evaluator", 
-    company: "Prompt & Intent Evaluation",
-    duration: "June 2025 - July 2025",
+    role: "LLM Output Quality Evaluation",
+    company: "MatrixGo (Remote – Thailand)",
+    duration: "Jun 2025 – Jul 2025",
     description: [
-      "Benchmarked Thai/English LLM responses for fluency, factuality, and alignment",
-      "Provided actionable feedback on tone and cultural nuance for model retraining",
-      "Authored prompt-clarity guidelines adopted across the entire evaluator team"
+      "Benchmarked Thai/English LLM responses for fluency, factuality, and intent alignment, ensuring strong inter-annotator agreement",
+      "Delivered actionable feedback on tone, cultural nuance, and safety to inform model retraining cycles",
+      "Authored prompt-clarity guidelines adopted across the evaluator team"
     ],
   },
   {
-    role: "Ad Quality Rater",
-    company: "Meta (via Appen Contract)", 
-    duration: "April 2025 - June 2025",
+    role: "Family Business Rental Real Estate",
+    company: "Bangkok, Thailand",
+    duration: "2018 – 2024",
     description: [
-      "Reviewed 250+ Facebook/Instagram ads per shift with 80%+ audit accuracy",
-      "Flagged high-risk content and initiated rapid takedown requests efficiently",
-      "Escalated borderline cases with clear rationales for accelerated reviews"
+      "Managed family rental business including tenant relations, property maintenance, and cost control",
+      "Maintained operations during COVID-19 while focusing on personal health and wellness",
+      "Completed self-directed fullstack web development training in React, Next.js, Node.js, and modern JavaScript/TypeScript"
     ],
   },
 ];
@@ -110,14 +112,13 @@ export default function ExperienceSection() {
         <video
           ref={videoRef}
           autoPlay
-          loop 
-          muted 
+          loop
+          muted
           playsInline
           preload="metadata"
           onLoadedData={handleVideoLoad}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-            isVideoLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isVideoLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
           style={{
             minWidth: '100%',
             minHeight: '100%',
@@ -159,27 +160,30 @@ export default function ExperienceSection() {
           <div className="space-y-16">
             {experiences.map((exp, index) => (
               <AnimateOnScroll key={index}>
-                <div 
-                  className={`relative transition-all duration-300 ${
-                    hoveredIndex === index ? 'scale-105' : ''
-                  }`}
+                <div
+                  className={`relative transition-all duration-300 ${hoveredIndex === index ? 'scale-105' : ''
+                    }`}
                   onMouseEnter={() => setHoveredIndex(index)}
                   onMouseLeave={() => setHoveredIndex(null)}
                 >
                   {/* Timeline dot */}
                   <div className="absolute left-6 md:left-1/2 md:-translate-x-1/2 w-4 h-4 bg-white border-4 border-[#84e0ff] rounded-full shadow-lg z-10"></div>
-                  
+
                   {/* Content */}
                   <div className="md:grid md:grid-cols-2 gap-8 items-start ml-16 md:ml-0">
                     {/* Left side - Job info */}
-                    <div className="md:text-right md:pr-8">
-                      <div className="bg-black/40 backdrop-blur-lg border border-white/10 rounded-xl shadow-2xl hover:shadow-[#84e0ff]/20 transition-all duration-300 p-6">
-                        <h3 className="text-2xl font-bold text-white mb-2">
+                    <div className="md:text-right md:pr-8 flex md:justify-end">
+                      <div
+                        className={`inline-block w-fit bg-black/40 backdrop-blur-lg border border-white/10 rounded-xl shadow-2xl hover:shadow-[#84e0ff]/20 transition-all duration-300 p-6`}
+                      >
+                        <h3 className="text-2xl font-bold text-white mb-2 whitespace-nowrap">
                           {exp.role}
                         </h3>
+
                         <p className="text-lg font-medium text-[#84e0ff] mb-2">
                           {exp.company}
                         </p>
+
                         <p className="text-sm font-medium text-gray-300 bg-white/10 px-3 py-1 rounded-full inline-block">
                           {exp.duration}
                         </p>
